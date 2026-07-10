@@ -1,6 +1,13 @@
 // SPDX-License-Identifier: MIT
 // Copyright © 2018-2023 WireGuard LLC. All Rights Reserved.
 
+// DropletByWarpLab fork patch: the ctl_info / sockaddr_ctl structs below use
+// the BSD types u_int32_t / u_char / u_int16_t. Xcode 26.3's explicit-modules
+// Clang requires them to be imported before use ("declaration of 'u_int32_t'
+// must be imported from module ... before it is required"). Include the header
+// that declares them. (WARP-1211)
+#include <sys/types.h>
+
 #include "key.h"
 #include "x25519.h"
 
