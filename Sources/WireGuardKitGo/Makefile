@@ -20,6 +20,12 @@ GOARCH_arm64 := arm64
 GOARCH_x86_64 := amd64
 GOOS_macosx := darwin
 GOOS_iphoneos := ios
+# DropletByWarpLab fork: upstream omits the simulator mapping, so a
+# PLATFORM_NAME=iphonesimulator build (e.g. CI "Build & unit tests (iOS
+# Simulator)") resolves GOOS to empty and the Go build fails. The simulator
+# target is still GOOS=ios — the simulator SDK + -mios-simulator-version-min
+# come in via SDKROOT / DEPLOYMENT_TARGET_* in CGO_CFLAGS. (WARP-1211)
+GOOS_iphonesimulator := ios
 
 build: $(DESTDIR)/libwg-go.a
 version-header: $(DESTDIR)/wireguard-go-version.h
